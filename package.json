@@ -1,0 +1,34 @@
+{
+  "name": "ts-axios",
+  "version": "1.0.0",
+  "description": "use TypeScript implement Axios",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodingGorit/ts-axios.git"
+  },
+  "keywords": [
+    "TypeScript",
+    "axios"
+  ],
+  "author": "Gorit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodingGorit/ts-axios/issues"
+  },
+  "homepage": "https://github.com/CodingGorit/ts-axios#readme",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "ts-jest": "^27.1.3",
+    "ts-loader": "^9.2.8",
+    "tslint-loader": "^3.5.4",
+    "typedoc": "^0.22.13",
+    "webpack": "^5.70.0",
+    "webpack-dev-middleware": "^5.3.1",
+    "webpack-hot-middleware": "^2.25.1"
+  }
+}
