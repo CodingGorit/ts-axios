@@ -1,16 +1,21 @@
-import { AxiosRequestConfig } from './types/index';
+import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from './types/index';
 import { buildURL } from './utils/url';
-import { transformRequest } from './utils/data';
+import { transformRequest, trasnfromResponse } from './utils/data';
+import { processHeaders } from './utils/headers';
 
 import xhr from './xhr';
 
-function axios(config: AxiosRequestConfig): void {
+// ts-axios return Promise
+function axios(config: AxiosRequestConfig): AxiosPromise {
     processConfig(config);
-    xhr(config);
+    return xhr(config).then((res) => {
+        return trasnfromResponseData(res);
+    });
 }
 
 function processConfig(config: AxiosRequestConfig): void {
     config.url = transformURL(config);
+    config.headers = transformHeaders(config);
     config.data = transformRequestData(config);
 }
 
@@ -23,4 +28,14 @@ function transformRequestData (config: AxiosRequestConfig): any {
     return transformRequest(config.data);
 }
 
+// handle headers trasnfrom body params that makes content-type use json
+function transformHeaders (config: AxiosRequestConfig): any {
+    const { headers, data } = config;
+    return processHeaders(headers, data);
+}
+
+function trasnfromResponseData (res: AxiosResponse): AxiosResponse {
+    res.data = trasnfromResponse(res.data);
+    return res;
+}
 export default axios;

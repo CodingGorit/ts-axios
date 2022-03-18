@@ -6,3 +6,20 @@ export function transformRequest (data: any): any {
     }
     return data;
 }
+
+/**
+ * try JSON.parse(data) and gain format data
+ * @param data
+ * @returns 
+ */
+export function trasnfromResponse (data: any): any {
+    if (typeof data === 'string') {
+        try {
+            data = JSON.parse(data);
+        } catch (e) {
+            // do notiong
+            // throw new Error('parse string error!!!!');
+        }
+    }
+    return data;
+}
