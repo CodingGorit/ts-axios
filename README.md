@@ -1,9 +1,13 @@
-Author：Gorit
-Date：2022年3月16日  
+Author：Gorit   
+Date：2022年3月16日    
+Refer: [Refactor axios using TypeScript](https://coding.imooc.com/class/330.html)  
 
-# ts-axios
-> use TypeScript implement axios,so called ts-axios
+# ts-axios  
+> use TypeScript implement axios,so called ts-axios  
 
+# 😄new features  
+TODO  
+1. Increase exception handling
 
 # update log
 - finish base axios function whitch including handleing params and body params 2022/3/19
