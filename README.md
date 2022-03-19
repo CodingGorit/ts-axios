@@ -73,7 +73,7 @@ test();
 ```  
 
 # update log  
-- use mixed-type object to extend axios's interface 2022/3/19
+- use mixed-type object to extend axios's interface, response generic 2022/3/19
 - finish base axios function whitch including handleing params and body params. handle exceptions 2022/3/18
 - implement buildURL function, and handle params process 2022/3/17
 - init project on 2022/3/16
