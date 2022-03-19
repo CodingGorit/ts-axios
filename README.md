@@ -6,7 +6,7 @@ Refer: [Refactor axios using TypeScript](https://coding.imooc.com/class/330.html
 > use TypeScript implement axios,so called ts-axios  
 
 # 😄new features   
-- Added interface extensions
+### base usage  
 ```TypeScript
 axios.request(config)
 
@@ -40,6 +40,37 @@ axios('/extend/post', {
     }
 })
 ```
+### return value with generic
+
+```TypeScript  
+// For example, the same datastructure return value as the backend
+interface ResponseData<T=any> {
+    code: number,
+    message: string,
+    data: T
+}
+
+// the same pojo、vo、entity and so on
+interface User {
+    name: string,
+    age: number
+}
+
+function getUser<T>() {
+    return axios<ResponseData<T>>('/extend/user')
+        .then(res => res.data)
+        .catch(err => console.log(err));
+}
+
+async function test() {
+    const user = await getUser<User>();
+    if (user) {
+        console.log(user.data.name);    
+    }
+}
+
+test();
+```  
 
 # update log  
 - use mixed-type object to extend axios's interface 2022/3/19
