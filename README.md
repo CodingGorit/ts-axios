@@ -71,9 +71,25 @@ async function test() {
 
 test();
 ```  
+# branch version  
+### main   
+The most complete functionality
+### v1.1   
+just implement params process
+### v1.2  
+base on v1.1, here are implement features  
+1. body params process
+2. handle exception
+### v1.3  
+base on v1.2, here are implement features
+1. ts-axios interface extension
+2. response generic
+
+### vx.x
+TODO
 
 # update log  
-- use mixed-type object to extend axios's interface 2022/3/19
+- use mixed-type object to extend axios's interface, response generic 2022/3/19
 - finish base axios function whitch including handleing params and body params. handle exceptions 2022/3/18
 - implement buildURL function, and handle params process 2022/3/17
 - init project on 2022/3/16
