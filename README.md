@@ -84,6 +84,7 @@ base on v1.1, here are implement features
 base on v1.2, here are implement features
 1. ts-axios interface extension
 2. response generic
+3. implement request and response interceptor
 
 ### vx.x
 TODO
