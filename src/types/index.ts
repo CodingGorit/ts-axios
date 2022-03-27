@@ -40,6 +40,12 @@ export interface AxiosError extends Error {
  * Mixed-type interfaces
  */
 export interface Axios {
+    defaults: AxiosRequestConfig;
+    interceptors: {
+        request: AxiosInterceptorManager<AxiosRequestConfig>,
+        response: AxiosInterceptorManager<AxiosResponse>
+    }
+
     request<T=any>(config: AxiosRequestConfig): AxiosPromise<T>;
 
     get<T=any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>;
@@ -70,7 +76,7 @@ export interface AxiosInstance extends Axios{
  * eject => delete interceptors
  */
 export interface AxiosInterceptorManager<T> {
-    use(resolved: ResolvedFn<T>, rejected: RejectedFn): number
+    use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
 
     eject(id: number): void
 }
