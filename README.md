@@ -86,10 +86,12 @@ base on v1.2, here are implement features
 2. response generic
 3. implement request and response interceptor
 
-### vx.x
-TODO
+### v1.4
+base v1.3, here are implement features
+1. rewrite config
 
 # update log  
+- implement interceptors 2022/3/27
 - use mixed-type object to extend axios's interface, response generic 2022/3/19
 - finish base axios function whitch including handleing params and body params. handle exceptions 2022/3/18
 - implement buildURL function, and handle params process 2022/3/17
