@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from '../types';
+import { deepMerge, isPlainObject } from '../utils/util';
 
 const strats = Object.create(null);
 
@@ -13,11 +14,30 @@ function fromVal2Start(val1: any, val2: any): any {
 }
 
 
+function deepMergeStrat(val1: any, val2: any): any{
+    if (isPlainObject(val2)) {
+        return deepMerge(val1, val2);
+    } else if (typeof val2 !== 'undefined') {
+        return val2;
+    } else if (isPlainObject(val2)) {
+        return deepMerge(val1);
+    } else if (typeof val1 !== 'undefined') {
+        return val1;
+    }
+}
+
+
 const stratKeysFromVal2 = ['url', 'params', 'data'];
 
 stratKeysFromVal2.forEach(key => {
     strats[key] = fromVal2Start;
 });
+
+const startKyesDeepMerge = ['headers'];
+
+startKyesDeepMerge.forEach(key => {
+    strats[key] = deepMergeStrat
+})
 
 // use strategy gof
 export default function mergeConfig (config1: AxiosRequestConfig,
