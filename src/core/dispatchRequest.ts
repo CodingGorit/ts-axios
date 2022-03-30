@@ -1,7 +1,7 @@
 import { AxiosPromise, AxiosRequestConfig, AxiosResponse } from '../types/index';
 import { buildURL } from '../utils/url';
-import { transformRequest, trasnfromResponse } from '../utils/data';
-import { flattenHeaders, processHeaders } from '../utils/headers';
+import { flattenHeaders } from '../utils/headers';
+import transform from './transform';
 
 import xhr from './xhr';
 
@@ -15,8 +15,8 @@ export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromis
 
 function processConfig(config: AxiosRequestConfig): void {
     config.url = transformURL(config);
-    config.headers = transformHeaders(config);
-    config.data = transformRequestData(config);
+    // config.headers = transformHeaders(config);
+    config.data = transform(config.data, config.headers, config.transformRequest);
     config.headers = flattenHeaders(config.headers, config.method!);
 }
 
@@ -26,17 +26,8 @@ function transformURL(config: AxiosRequestConfig): string {
     return buildURL(url!, params);
 }
 
-function transformRequestData (config: AxiosRequestConfig): any {
-    return transformRequest(config.data);
-}
-
-// handle headers trasnfrom body params that makes content-type use json
-function transformHeaders (config: AxiosRequestConfig): any {
-    const { headers, data } = config;
-    return processHeaders(headers, data);
-}
 
 function trasnfromResponseData (res: AxiosResponse): AxiosResponse {
-    res.data = trasnfromResponse(res.data);
+    res.data = transform(res.data, res.headers, res.config.transformResponse);
     return res;
 }
