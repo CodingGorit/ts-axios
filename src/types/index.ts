@@ -73,6 +73,10 @@ export interface AxiosInstance extends Axios{
     <T=any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>;
 }
 
+export interface AxiosStatic extends AxiosInstance {
+    create(config?: AxiosRequestConfig): AxiosInstance
+}
+
 /**
  * use => register interceptors
  * 

@@ -71,6 +71,37 @@ async function test() {
 
 test();
 ```  
+
+### you can use interceptor and axios.create()
+```typescript
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from '../../src/index';
+
+
+const http = axios.create({
+    headers: {
+        "Content-Type": "application/json,charset=UTF-8"
+    }
+})
+
+http.interceptors.request.use(function (config: AxiosRequestConfig) {
+    // 在发送请求之前做些什么
+    return config;
+  }, function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+});
+
+http.interceptors.response.use(function (response) {
+    // 2xx 范围内的状态码都会触发该函数。
+    // 对响应数据做点什么
+    return response;
+  }, function (error) {
+    // 超出 2xx 范围的状态码都会触发该函数。
+    // 对响应错误做点什么
+    return Promise.reject(error);
+  });
+```
+
 # branch version  
 ### main   
 The most complete functionality
@@ -89,8 +120,11 @@ base on v1.2, here are implement features
 ### v1.4
 base v1.3, here are implement features
 1. rewrite config
+2. implement request interceptors and response interceptors
+3. static method of axios.create() and refine transform
 
 # update log  
+- implement transformRequest, transformReponse and axios.crate() 2022/3/30
 - implement interceptors 2022/3/27
 - use mixed-type object to extend axios's interface, response generic 2022/3/19
 - finish base axios function whitch including handleing params and body params. handle exceptions 2022/3/18
