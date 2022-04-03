@@ -4,14 +4,15 @@ import { axiosErrorFactory } from "../utils/error";
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     return new Promise((resolve, reject) => {
-        const { data = null, 
-                url, 
-                method = 'get',
-                headers,
-                responseType,
-                timeout } = config;
+        const { data = null,
+            url,
+            method = 'get',
+            headers,
+            responseType,
+            timeout,
+            cancelToken } = config;
         const request = new XMLHttpRequest();
-    
+
         if (responseType) {
             request.responseType = responseType;
         }
@@ -21,8 +22,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         }
 
         request.open(method.toUpperCase(), url!, true);
-        
-        request.onreadystatechange = function handleload () {
+
+        request.onreadystatechange = function handleload() {
             if (request.readyState !== 4) {
                 return;
             }
@@ -44,11 +45,11 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
             handleResponse(response);
         }
 
-        request.onerror = function handleError () {
+        request.onerror = function handleError() {
             reject(axiosErrorFactory('Network Error', config, null, request));
         }
 
-        request.ontimeout = function handleTimeout () {
+        request.ontimeout = function handleTimeout() {
             reject(axiosErrorFactory(`Timeout of ${timeout} ms exceeded`, config, 'ECONNABORTED', request));
         }
 
@@ -60,11 +61,18 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
                 request.setRequestHeader(name, headers[name]);
             }
         })
-    
+
+        if (cancelToken) {
+            cancelToken.promise.then(reason => {
+                request.abort();
+                reject(reason);
+            })
+        }
+
         request.send(data);
 
         function handleResponse(response: AxiosResponse) {
-            if (response.status >= 200 && response.status <300) {
+            if (response.status >= 200 && response.status < 300) {
                 resolve(response);
             } else {
                 reject(axiosErrorFactory(`Request fail with status code ${response.status}`, config, null, request, response));

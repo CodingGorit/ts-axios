@@ -7,6 +7,7 @@ import xhr from './xhr';
 
 // ts-axios return Promise
 export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
+    throwIfCancellationRequested(config);
     processConfig(config);
     return xhr(config).then((res) => {
         return trasnfromResponseData(res);
@@ -30,4 +31,10 @@ function transformURL(config: AxiosRequestConfig): string {
 function trasnfromResponseData (res: AxiosResponse): AxiosResponse {
     res.data = transform(res.data, res.headers, res.config.transformResponse);
     return res;
+}
+
+function throwIfCancellationRequested(config: AxiosRequestConfig): void {
+    if (config.cancelToken) {
+        config.cancelToken.throwIfRequested();
+    }
 }
