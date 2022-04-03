@@ -102,6 +102,38 @@ http.interceptors.response.use(function (response) {
   });
 ```
 
+### you can use cancelToken like this
+```typescript
+import axios, { Canceler } from '../../src/index';
+
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
+axios.get("/cancel/get", {
+    cancelToken: source.token
+}).catch(function(e) {
+    if (axios.isCancel(e)) {
+        console.log("Request Canceled", e.message);
+    }
+});
+
+setTimeout(() => {
+
+}, 100);
+
+let cancel: Canceler;
+
+axios.get("/cancel/get", {
+    cancelToken: new CancelToken(c => {
+        cancel = c;
+    })
+}).catch(function(e) {
+    if (axios.isCancel(e)) {
+        console.log("Request canceled");
+    }
+})
+```
+
 # branch version  
 ### main   
 The most complete functionality
@@ -123,7 +155,12 @@ base v1.3, here are implement features
 2. implement request interceptors and response interceptors
 3. static method of axios.create() and refine transform
 
+### v1.5
+base v1.4
+1. implement CancelToken
+
 # update log  
+- implement with cancelToken 2022/4/3
 - implement transformRequest, transformReponse and axios.crate() 2022/3/30
 - implement interceptors 2022/3/27
 - use mixed-type object to extend axios's interface, response generic 2022/3/19
