@@ -1,6 +1,6 @@
 import { AxiosRequestConfig } from "./types";
-import { transformRequest } from "./utils/data";
-import { processHeaders } from "./utils/headers";
+import { transformRequest } from "./headers/data";
+import { processHeaders } from "./headers/headers";
 
 const defaults: AxiosRequestConfig = {
     method: 'get',
@@ -12,6 +12,10 @@ const defaults: AxiosRequestConfig = {
             Accept: 'application/json, text/palin, "/"'
         }
     },
+
+    xsrfCookieName: 'XSRF-TOKEN',
+
+    xsrfHeaderName: 'X-XSRF-TOKEN',
 
     transformRequest: [
         function(data: any, headers: any): any {
