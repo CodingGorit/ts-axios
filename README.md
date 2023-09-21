@@ -1,12 +1,17 @@
-Author：Gorit   
-Date：2022年3月16日    
+# introduction
+
+Author：Gorit
+Date：2022年3月16日
 Refer: [Refactor axios using TypeScript](https://coding.imooc.com/class/330.html)  
 
-# ts-axios  
+## ts-axios
+
 > use TypeScript implement axios,so called ts-axios  
 
-# 😄new features   
-### base usage  
+## 😄new features
+
+### base usage
+
 ```TypeScript
 axios.request(config)
 
@@ -27,7 +32,7 @@ axios.patch(url[, data[, config]])
 // overide
 axios({
     url: '/extend/post',
-    method: 'post',
+    method: "post",
     data: {
         msg: 'Hello'
     }
@@ -40,6 +45,7 @@ axios('/extend/post', {
     }
 })
 ```
+
 ### return value with generic
 
 ```TypeScript  
@@ -73,6 +79,7 @@ test();
 ```  
 
 ### you can use interceptor and axios.create()
+
 ```typescript
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from '../../src/index';
 
@@ -103,6 +110,7 @@ http.interceptors.response.use(function (response) {
 ```
 
 ### you can use cancelToken like this
+
 ```typescript
 import axios, { Canceler } from '../../src/index';
 
@@ -134,32 +142,52 @@ axios.get("/cancel/get", {
 })
 ```
 
-# branch version  
-### main   
-The most complete functionality
+### branch version
+
+- main
+
+> The most complete functionality
 ### v1.1   
+
 just implement params process
 ### v1.2  
+
 base on v1.1, here are implement features  
+
 1. body params process
 2. handle exception
 ### v1.3  
+
 base on v1.2, here are implement features
+
 1. ts-axios interface extension
 2. response generic
 3. implement request and response interceptor
 
 ### v1.4
+
 base v1.3, here are implement features
+
 1. rewrite config
 2. implement request interceptors and response interceptors
 3. static method of axios.create() and refine transform
 
 ### v1.5
+
 base v1.4
+
 1. implement CancelToken
 
-# update log  
+### v1.6
+
+base v1.5
+
+1. add withCredential support
+2. add XSRF support
+
+## 🤔update log
+
+- implement two features for v1.6 2022/7/5
 - implement with cancelToken 2022/4/3
 - implement transformRequest, transformReponse and axios.crate() 2022/3/30
 - implement interceptors 2022/3/27
