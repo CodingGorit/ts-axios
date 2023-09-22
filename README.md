@@ -8,6 +8,10 @@ Refer: [Refactor axios using TypeScript](https://coding.imooc.com/class/330.html
 
 > use TypeScript implement axios,so called ts-axios  
 
+## devlopment
+
+1. typescript libary starter
+
 ## 😄new features
 
 ### base usage
